@@ -7,6 +7,11 @@ public class BST<T extends Comparable<T>> {
     private TreeNode root;
     private int size;
 
+    public BST() {
+        this.root = null;
+        this.size = 0;
+    }
+
     // 二叉树应该具备添加新的节点的功能
     // 首先，要保证插入的数值的合理性，如果为null，则失败
     // 如果插入相同的数值，则代表插入失败；反之，则代表插入成功
@@ -15,7 +20,7 @@ public class BST<T extends Comparable<T>> {
             // 如何弹出错误消息：invalid value
             return;
         }
-        add(root, val);
+        root = add(root, val);
     }
 
     // insert函数的辅助函数
@@ -23,6 +28,7 @@ public class BST<T extends Comparable<T>> {
     // 问题在于就是如果返回类型设置为void，那么第一行判断语句就无法生效
     private TreeNode<T> add(TreeNode<T> node, T val) {
         if (node == null) {
+            size++; // 在这里执行size的递增操作
             return new TreeNode<>(val);
         }
 
@@ -30,15 +36,11 @@ public class BST<T extends Comparable<T>> {
         if (cmp > 0) {
             // go right
             node.right = add(node.right, val);
-        } else if (cmp < 0) {
+        } else {
             // go left
             node.left = add(node.left, val);
-        } else {
-            // do nothing
-            return null;
         }
-
-        // 最后应该返回什么？
+        // 最后应该返回什么?
         return node;
     }
 

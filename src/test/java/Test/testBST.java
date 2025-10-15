@@ -27,12 +27,26 @@ public class testBST {
     }
 
     @Test
-    public void testAddAndSize() {
+    public void testInsertAndSize() {
         bst.insert(1);
         assertFalse(bst.isEmpty());
         assertEquals(1, bst.size());
 
-//        bst.insert(2);
-//        assertEquals(2, bst.size());
+        bst.insert(2);
+        assertEquals(2, bst.size());
+        bst.insert(3);
+        assertEquals(3, bst.size());
+    }
+
+    @Test
+    public void testInsertAndContains() {
+        bst.insert(1);
+        bst.insert(2);
+        bst.insert(3);
+        assertTrue(bst.contains(1));
+        assertTrue(bst.contains(2));
+        assertTrue(bst.contains(3));
+
+        assertFalse(bst.contains(4));
     }
 }
