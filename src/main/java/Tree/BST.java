@@ -4,7 +4,7 @@ package Tree;
  * 今天自己写一个二叉搜索树，就当是回顾和学习LeetCode内容了。
  */
 public class BST<T extends Comparable<T>> {
-    private TreeNode root;
+    private TreeNode<T> root;
     private int size;
 
     public BST() {
@@ -78,11 +78,48 @@ public class BST<T extends Comparable<T>> {
     }
 
     /**
+     * 一直向左走，就可以找到最小值
+     * @return
+     */
+    public T findMin() {
+        if (root == null) {
+            return null;
+        }
+        return findMin(root);
+    }
+
+    private T findMin(TreeNode<T> node) {
+        if (node.left == null) {
+            return node.val;
+        }
+        return findMin(node.left);
+    }
+
+    /**
+     * 一直向右走，就可以找到最大值
+     * @return
+     */
+    public T findMax() {
+        if (root == null) {
+            return null;
+        }
+        return findMax(root);
+    }
+
+    private T findMax(TreeNode<T> node) {
+        if (node.right == null) {
+            return node.val;
+        }
+        return findMax(node.right);
+    }
+
+    /**
      * 整个BST之中最为复杂的操作，需要分三种情况来讨论
      * @param val
      */
-//    public void remove(T val) {
-//    }
+    public void remove(T val) {
+        return;
+    }
 
 
 }

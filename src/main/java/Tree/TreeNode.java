@@ -6,8 +6,8 @@ package Tree;
  */
 public class TreeNode<T extends Comparable<T>> {
     T val;
-    TreeNode left;
-    TreeNode right;
+    TreeNode<T> left;
+    TreeNode<T> right;
 
     public TreeNode(T val) {
         this.val = val;
