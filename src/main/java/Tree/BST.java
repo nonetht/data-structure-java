@@ -148,14 +148,31 @@ public class BST<T extends Comparable<T>> {
                 return null;
             } else if (node.left != null && node.right != null) {
                 // case3: 待删除节点有两个子节点时
-                // 我记得是，如果是左子树，寻找左子树最大值；右子树则寻找右子树最小值
-
+                // 对于当前节点而言，将左子树最大值替换上来，或者是将右子树的最小值替换上来
+                // step1. 将值进行替换
+                // step2. 随后将左子树最大值/右子树最小值进行一个移除操作
+                node.val = findMin(node.right); // 将值替换为右子树最小值
+                node.right = removeMin(node.right); // 移除右子树的最小值
+                return node;
             } else {
                 // case2: 有一个子节点时
                 if (node.left != null) return node.left;
                 else return node.right;
             }
         }
+        return node;
+    }
+
+    // 移除最小值
+    private TreeNode<T> removeMin(TreeNode<T> node) {
+        if (node.left == null) {
+            // 关键是，如果右节点不为空呢？就相当于删除一个只有一个子节点的节点
+            TreeNode<T> rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
         return node;
     }
 }
