@@ -17,8 +17,7 @@ public class BST<T extends Comparable<T>> {
     // 如果插入相同的数值，则代表插入失败；反之，则代表插入成功
     public void insert(T val) {
         if (val == null) {
-            // 如何弹出错误消息：invalid value
-            return;
+            throw new IllegalArgumentException("Cannot insert null into BST");
         }
         root = add(root, val);
     }
@@ -122,13 +121,13 @@ public class BST<T extends Comparable<T>> {
      */
     public void remove(T val) {
         if (val == null) {
-            // 怎样输出错误信息，提醒值val无效呢？
-            return;
+            throw new IllegalArgumentException("Cannot remove null from BST");
         }
         delete(root, val);
     }
 
     // 还有一点就是，关于size大小变化在哪里变化呢？
+    // 对于delete函数而言，应该在确定要删除一个节点时执行!
     private TreeNode<T> delete(TreeNode<T> node, T val) {
         // 说明没有找到对应的节点
         if (node == null) {
@@ -142,9 +141,9 @@ public class BST<T extends Comparable<T>> {
         } else if (cmp < 0) {
             node.left = delete(node.left, val);
         } else {
-            size--; // find specified node, modify the size
             if (node.left == null && node.right == null) {
                 // case1: 待删除节点为leaf node的时候
+                size--;
                 return null;
             } else if (node.left != null && node.right != null) {
                 // case3: 待删除节点有两个子节点时
@@ -156,8 +155,13 @@ public class BST<T extends Comparable<T>> {
                 return node;
             } else {
                 // case2: 有一个子节点时
-                if (node.left != null) return node.left;
-                else return node.right;
+                if (node.left != null) {
+                    size--;
+                    return node.left;
+                } else {
+                    size--;
+                    return node.right;
+                }
             }
         }
         return node;
