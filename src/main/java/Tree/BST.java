@@ -115,11 +115,46 @@ public class BST<T extends Comparable<T>> {
 
     /**
      * 整个BST之中最为复杂的操作，需要分三种情况来讨论
+     * case1: 当待删除节点为leaf node的时候，直接删除即可
+     * case2: 当待删除节点有**一个**子节点时，
+     * case3: 当待删除节点有**两个**子节点时，
      * @param val
      */
     public void remove(T val) {
-        return;
+        if (val == null) {
+            // 怎样输出错误信息，提醒值val无效呢？
+            return;
+        }
+        delete(root, val);
     }
+
+    private TreeNode<T> delete(TreeNode<T> node, T val) {
+        // 说明没有找到对应的节点
+        if (node == null) {
+            return null;
+        }
+
+        int cmp = val.compareTo(node.val);
+
+        if (cmp > 0) {
+            node.right = delete(node.right, val);
+        } else if (cmp < 0) {
+            node.left = delete(node.left, val);
+        } else {
+            if (node.left == null && node.right == null) {
+                // case1: 待删除节点为leaf node的时候
+                return null;
+            } else if (node.left != null && node.right != null) {
+                // case3: 待删除节点有两个子节点时
+
+
+            } else {
+                // case2: 有一个子节点时
+
+            }
+        }
+    }
+
 
 
 }
