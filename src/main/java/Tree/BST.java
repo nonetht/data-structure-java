@@ -128,6 +128,7 @@ public class BST<T extends Comparable<T>> {
         delete(root, val);
     }
 
+    // 还有一点就是，关于size大小变化在哪里变化呢？
     private TreeNode<T> delete(TreeNode<T> node, T val) {
         // 说明没有找到对应的节点
         if (node == null) {
@@ -141,20 +142,20 @@ public class BST<T extends Comparable<T>> {
         } else if (cmp < 0) {
             node.left = delete(node.left, val);
         } else {
+            size--; // find specified node, modify the size
             if (node.left == null && node.right == null) {
                 // case1: 待删除节点为leaf node的时候
                 return null;
             } else if (node.left != null && node.right != null) {
                 // case3: 待删除节点有两个子节点时
-
+                // 我记得是，如果是左子树，寻找左子树最大值；右子树则寻找右子树最小值
 
             } else {
                 // case2: 有一个子节点时
-
+                if (node.left != null) return node.left;
+                else return node.right;
             }
         }
+        return node;
     }
-
-
-
 }

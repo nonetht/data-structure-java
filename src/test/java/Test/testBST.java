@@ -65,4 +65,21 @@ public class testBST {
         bst.insert(4);
         assertEquals(1, bst.findMin());
     }
+
+    @Test
+    public void testDelete() {
+        bst.insert(2);
+        bst.insert(1);
+        bst.insert(3);
+        bst.insert(5);
+
+        bst.remove(5);
+        assertEquals(3, bst.size());
+        assertFalse(bst.contains(5));
+        bst.insert(5);
+        assertEquals(4, bst.size());
+        bst.remove(3);
+        assertEquals(3, bst.size());
+        assertFalse(bst.contains(3));
+    }
 }
